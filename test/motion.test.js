@@ -1,7 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {MotionBuffer} from '../src/motion.js';
+import {MotionBuffer,smoothHeading} from '../src/motion.js';
 const state=(time,x,extra={})=>({time,world:{w:3600,h:3600},players:[{id:'p1',x,y:500,angle:0,alive:true,deaths:0,body:[[x,500],[x-9,500]],...extra}]});
+
+test('local head rotation follows a sliding target at the game turn rate without angle-wrap snaps',()=>{
+ let heading=Math.PI-.02;
+ for(let i=0;i<120;i++){const next=smoothHeading(heading,-Math.PI+.2+Math.sin(i/60),1/60);assert.ok(Math.abs(next-heading)<=3.5/60+1e-9);heading=next;}
+ assert.ok(Math.abs(smoothHeading(0,Math.PI/2,1/60))<.06);
+ assert.ok(smoothHeading(Math.PI-.02,-Math.PI+.02,1/60)>Math.PI-.02);
+});
 
 test('ten network updates per second produce continuous sixty-frame motion without mutating snapshots',()=>{
  const buffer=new MotionBuffer;let last=0,movingFrames=0,networkUpdates=0;

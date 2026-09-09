@@ -3,6 +3,11 @@ const delta=(a,b,n)=>((a-b+n*1.5)%n)-n/2;
 const mix=(a,b,t,n)=>wrap(a+delta(b,a,n)*t,n);
 const angle=(a,b,t)=>a+Math.atan2(Math.sin(b-a),Math.cos(b-a))*t;
 
+export function smoothHeading(current,target,dt){
+ const turn=Math.atan2(Math.sin(target-current),Math.cos(target-current)),limit=3.5*Math.min(.05,Math.max(0,dt));
+ return current+Math.max(-limit,Math.min(limit,turn));
+}
+
 // A small jitter buffer creates animation frames locally, never network messages.
 export class MotionBuffer{
  constructor(){this.frames=[];this.delay=.1;this.lastTime=-Infinity;}

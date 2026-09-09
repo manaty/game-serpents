@@ -4,7 +4,9 @@ Version 1.0.1 adds a larger portrait overview and a perspective drone camera fol
 
 Automated tests were run by the implementing agent, not an independent human reviewer.
 
-Phone rendering now interpolates head, body and heading between received snapshots, using wrapped coordinates and a short adaptive jitter buffer. Prediction is capped at 100 ms during a missing packet; deaths, respawns and pauses reset motion. Three motion tests check 60 visual samples from 10 network snapshots per second, immutable inputs, seam/angle interpolation and bounded prediction/reset behavior. This does not change the network send cadence. Phone animation uses the device animation clock (up to 60 fps), while the heavier display remains capped around 30 fps.
+Phone rendering now interpolates head, body and heading between received snapshots, using wrapped coordinates and a short adaptive jitter buffer. Prediction is capped at 100 ms during a missing packet; deaths, respawns and pauses reset motion. Four motion tests check 60 visual samples from 10 network snapshots per second, immutable inputs, seam/angle interpolation, bounded prediction/reset behavior and local head turn-rate limits while a target slides. This does not change the network send cadence. Phone animation uses the device animation clock (up to 60 fps), while the heavier display remains capped around 30 fps.
+
+A third browser suite switches between joystick and touch steering in the sandboxed frame, drags one pointer from right to up to left, holds boost with a second pointer, cancels/releases both, checks the language change retains the selected mode and returns to joystick. It checks actual outgoing game actions and rejects browser errors. Durable preference storage across a page reload depends on the embedding host allowing session storage; the current sandbox preserves the selected mode within the open game frame.
 
 ## Engine
 
