@@ -1,4 +1,6 @@
-# Serpents · Endless gardens 1.0.0 — acceptance evidence
+# Serpents · Endless gardens 1.0.1 — acceptance evidence
+
+Version 1.0.1 changes only the display overview and package artwork: a larger portrait rectangle, with the major circumference vertical and proportions derived from the rendered torus radii. EN/FR/TL phone/display layout and camera-target checks were rerun and the resulting display screenshot inspected. The gameplay engine is unchanged from 1.0.0; the CI workflow also repeats engine and host integration checks.
 
 Automated tests were run by the implementing agent, not an independent human reviewer.
 
