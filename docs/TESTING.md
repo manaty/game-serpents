@@ -4,6 +4,8 @@ Version 1.0.1 adds a larger portrait overview and a perspective drone camera fol
 
 Automated tests were run by the implementing agent, not an independent human reviewer.
 
+Phone rendering now interpolates head, body and heading between received snapshots, using wrapped coordinates and a short adaptive jitter buffer. Prediction is capped at 100 ms during a missing packet; deaths, respawns and pauses reset motion. Three motion tests check 60 visual samples from 10 network snapshots per second, immutable inputs, seam/angle interpolation and bounded prediction/reset behavior. This does not change the network send cadence. Phone animation uses the device animation clock (up to 60 fps), while the heavier display remains capped around 30 fps.
+
 ## Engine
 
 The engine tests exercise authorized/invalid input, roster bounds, steering, simultaneous collisions, energy/length costs, expiry and release, scoring and ties, complete minimum- and maximum-player matches, saved-game restoration and the compiled QuickJS sandbox. Additional tests cross both toroidal seams, collect food and collide across seams, test respawn immunity, exclude bots from the human podium and run twelve serpents. State sent to the display omits world food and nonleader bodies; phones receive details in their camera region. Simulation uses 20 Hz physics and spatial collision indices.
