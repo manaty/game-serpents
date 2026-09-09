@@ -43,7 +43,7 @@ export class MotionBuffer{
   const old=new Map(before.state.players.map(p=>[p.id,p]));
   return {...latest.state,players:after.state.players.map(p=>{
    const a=old.get(p.id),live=current.get(p.id)||p;
-   if(!a||live.visible===false||a.visible===false||!live.alive||a.alive!==live.alive||a.deaths!==live.deaths||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return live;
+   if(!a||live.visible===false||p.visible===false||a.visible===false||!live.alive||a.alive!==live.alive||a.deaths!==live.deaths||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return live;
    return {...live,x:mix(a.x,p.x,t,W),y:mix(a.y,p.y,t,H),angle:angle(a.angle,p.angle,t),body:p.body.map((b,i)=>{
     const previous=a.body[Math.min(i,a.body.length-1)];
     return !previous||Math.hypot(delta(b[0],previous[0],W),delta(b[1],previous[1],H))>600?b:[mix(previous[0],b[0],t,W),mix(previous[1],b[1],t,H)];

@@ -1,4 +1,6 @@
-# Serpents · Endless gardens 1.1.0 — acceptance evidence
+# Serpents · Endless gardens 1.1.1 — acceptance evidence
+
+Version 1.1.1 adds a regression test and guard for a distant serpent leaving and reentering the visible region inside the interpolation buffer. Missing offscreen coordinates are never interpolated. There are 24 game tests in total; the same three browser suites and isolated package validation are repeated for this artifact.
 
 Version 1.1.0 reduces phone traffic using a 128-unit spatial grid, the actual phone viewport plus 200-unit margin, and 128-unit cell hysteresis. Both wrapped seams are covered; offscreen heads do not hide a visible part of their body. Stable food and path-point IDs support acknowledged per-client JSON deltas in SDK 1.10. Reconnects and baseline mismatch receive a full state. Old clients still receive full snapshots. Input, physics and send cadence are unchanged.
 
