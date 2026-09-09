@@ -1,0 +1,27 @@
+{
+  "name": "@manaty/game-serpents",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "description": "Smooth multiplayer garden serpents with phone joysticks.",
+  "exports": {
+    "./engine": "./server/game.js",
+    "./package": "./dist/game.rmg.json"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "start": "retro-museum-host --package dist/game.rmg.json",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node --test --test-concurrency=1 test/*.test.mjs"
+  },
+  "dependencies": {
+    "@manaty/retro-museum-sdk": "https://github.com/manaty/retro-museum-sdk/archive/15b791a0b7fe48985690ea8dde4b326d496da570.tar.gz"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "playwright": "1.59.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

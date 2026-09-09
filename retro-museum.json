@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "id": "serpents",
+  "version": "1.0.0",
+  "title": {
+    "en": "Serpents · Endless gardens",
+    "fr": "Serpents · Jardins sans fin",
+    "tl": "Serpents · Walang-hanggang hardin"
+  },
+  "description": {
+    "en": "Grow by collecting glowing seeds. Avoid other serpents’ bodies. Boost spends length. You respawn after a collision. The largest human serpent at the end wins. The world wraps at every edge.",
+    "fr": "Grandis en mangeant les graines lumineuses. Évite le corps des autres serpents. Le turbo consomme de la longueur. Tu réapparais après une collision. Le plus grand serpent humain à la fin gagne. Tous les bords se rejoignent.",
+    "tl": "Lumaki sa pagkain ng kumikinang na buto. Iwasan ang katawan ng ibang ahas. Nakakabawas ng haba ang Bilis. Babalik ka matapos bumangga. Pinakamalaking ahas ng tao sa dulo ang panalo. Magkakadugtong ang lahat ng gilid."
+  },
+  "author": "Manaty",
+  "license": "MIT",
+  "languages": [
+    "en",
+    "fr",
+    "tl"
+  ],
+  "players": {
+    "min": 1,
+    "max": 8
+  },
+  "durationMinutes": 15,
+  "introMs": 3000,
+  "runtime": "quickjs-v1",
+  "entry": "dist/game.rmg.json",
+  "permissions": [],
+  "autoStartWhenFull": false,
+  "activityKey": "serpents",
+  "options": {
+    "seconds": {
+      "label": {
+        "en": "Match seconds",
+        "fr": "Secondes de jeu",
+        "tl": "Segundo ng laro"
+      },
+      "values": [
+        60,
+        120,
+        180
+      ],
+      "default": 120
+    },
+    "bots": {
+      "label": {
+        "en": "Automatic serpents",
+        "fr": "Serpents automatiques",
+        "tl": "Awtomatikong ahas"
+      },
+      "values": [
+        0,
+        2,
+        4
+      ],
+      "default": 2
+    },
+    "arena": {
+      "label": {
+        "en": "Arena",
+        "fr": "Arène",
+        "tl": "Arena"
+      },
+      "values": [
+        "garden",
+        "lagoon",
+        "twilight"
+      ],
+      "default": "garden"
+    }
+  },
+  "cover": "cover.png"
+}

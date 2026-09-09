@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "passed",
+  "sha256": "590569cc66efd6d6deae08b9723f5f3303374f2401da34df98a693779452f6db",
+  "game": "serpents",
+  "version": "1.0.0",
+  "checks": [
+    {
+      "name": "manifest-and-assets",
+      "passed": true
+    },
+    {
+      "name": "lifecycle-1-players",
+      "passed": true
+    },
+    {
+      "name": "lifecycle-8-players",
+      "passed": true
+    }
+  ],
+  "durationMs": 666,
+  "limits": {
+    "memoryMb": 24,
+    "operationMs": 40,
+    "externalPermissions": []
+  },
+  "scope": "Automated compatibility checks, not a security or gameplay certification."
+}

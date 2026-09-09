@@ -1,0 +1,3 @@
+// Same fixed ring and clamped disc interaction as Tanks, adapted to platforming.
+export function stickValue(clientX,clientY,rect){const radius=Math.max(1,Math.min(rect.width,rect.height)/2-25),dx=clientX-rect.left-rect.width/2,dy=clientY-rect.top-rect.height/2,len=Math.max(radius,Math.hypot(dx,dy));return{x:dx/len,y:dy/len,offsetX:dx/len*radius,offsetY:dy/len*radius};}
+export function inputValue(stick,keys,jump,drop){return{x:keys.has('ArrowLeft')||keys.has('a')?-1:keys.has('ArrowRight')||keys.has('d')?1:stick?.x||0,y:keys.has('ArrowUp')||keys.has('w')?-1:keys.has('ArrowDown')||keys.has('s')?1:stick?.y||0,jump:jump||keys.has(' '),drop};}

@@ -1,0 +1,22 @@
+name: Standalone game
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  game:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: npm test
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+      - uses: manaty/retro-museum-sdk@15b791a0b7fe48985690ea8dde4b326d496da570
+        with:
+          path: .
