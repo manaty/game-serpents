@@ -1,0 +1,22 @@
+{
+  "scope": "Deterministic 20-second simulation, 8 humans + 4 bots, 870×1600 phone viewports, full reconnect halfway. Raw JSON payload only, excludes TCP/TLS/WebSocket headers. Every reconstructed frame equals its full authoritative state; physical game state remains identical to v1.0.2.",
+  "summaries": {
+    "phone": {
+      "beforeBytes": 25570,
+      "filteredBytes": 24294,
+      "wireBytes": 2837,
+      "reduction": 9.01,
+      "fullFrames": 16,
+      "frames": 1600
+    },
+    "display": {
+      "beforeBytes": 8866,
+      "filteredBytes": 9080,
+      "wireBytes": 1757,
+      "reduction": 5.05,
+      "fullFrames": 2,
+      "frames": 200
+    }
+  },
+  "meanEncodeMs": 2.709103277777752
+}

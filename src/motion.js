@@ -34,7 +34,7 @@ export class MotionBuffer{
    const prev=this.frames[this.frames.length-2],elapsed=latest.state.time-prev.state.time;
    const old=new Map(prev.state.players.map(p=>[p.id,p])),extra=Math.min(.1,target-latest.state.time);
    return {...latest.state,players:latest.state.players.map(p=>{
-    const a=old.get(p.id);if(!a||!p.alive||a.alive!==p.alive||a.deaths!==p.deaths||elapsed<=0||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return p;
+    const a=old.get(p.id);if(!a||p.visible===false||a.visible===false||!p.alive||a.alive!==p.alive||a.deaths!==p.deaths||elapsed<=0||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return p;
     const dx=delta(p.x,a.x,W)/elapsed*extra,dy=delta(p.y,a.y,H)/elapsed*extra;
     return {...p,x:wrap(p.x+dx,W),y:wrap(p.y+dy,H),body:p.body.map(b=>[wrap(b[0]+dx,W),wrap(b[1]+dy,H)])};
    })};
@@ -43,7 +43,7 @@ export class MotionBuffer{
   const old=new Map(before.state.players.map(p=>[p.id,p]));
   return {...latest.state,players:after.state.players.map(p=>{
    const a=old.get(p.id),live=current.get(p.id)||p;
-   if(!a||!live.alive||a.alive!==live.alive||a.deaths!==live.deaths||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return live;
+   if(!a||live.visible===false||a.visible===false||!live.alive||a.alive!==live.alive||a.deaths!==live.deaths||Math.hypot(delta(p.x,a.x,W),delta(p.y,a.y,H))>600)return live;
    return {...live,x:mix(a.x,p.x,t,W),y:mix(a.y,p.y,t,H),angle:angle(a.angle,p.angle,t),body:p.body.map((b,i)=>{
     const previous=a.body[Math.min(i,a.body.length-1)];
     return !previous||Math.hypot(delta(b[0],previous[0],W),delta(b[1],previous[1],H))>600?b:[mix(previous[0],b[0],t,W),mix(previous[1],b[1],t,H)];

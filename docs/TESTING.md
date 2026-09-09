@@ -1,4 +1,10 @@
-# Serpents · Endless gardens 1.0.2 — acceptance evidence
+# Serpents · Endless gardens 1.1.0 — acceptance evidence
+
+Version 1.1.0 reduces phone traffic using a 128-unit spatial grid, the actual phone viewport plus 200-unit margin, and 128-unit cell hysteresis. Both wrapped seams are covered; offscreen heads do not hide a visible part of their body. Stable food and path-point IDs support acknowledged per-client JSON deltas in SDK 1.10. Reconnects and baseline mismatch receive a full state. Old clients still receive full snapshots. Input, physics and send cadence are unchanged.
+
+Five additional interest tests cover viewport coverage at both seams, distant head/visible body, removals, hysteresis, death/reset, stable IDs and migration from older saves, bounded viewport input and distinct phone/display snapshots. SDK 1.10 adds four protocol tests, including real sockets with distinct private views, legacy clients and resynchronisation.
+
+The deterministic network benchmark uses eight humans, four bots, 20 seconds, 870×1600 logical phone viewports and one forced reconnect per client. Every decoded frame is compared to its complete authoritative state; every physical trajectory, score and death is compared to game 1.0.2. Mean phone JSON payload: 25,570 → 2,837 bytes (9.01× smaller). Display: 8,866 → 1,757 bytes (5.05× smaller). These are application payload measurements, not actual Wi-Fi latency or transport overhead. JSON encoding averaged 1–3 ms per frame on the development PC, varying with concurrent browser tests. See [the recorded results](network-bandwidth.json). Run `npm run benchmark:network` with git history containing commit `69bc7bd` (fetch full history first if needed).
 
 Version 1.0.2 makes own-body collisions lethal using the same spatial index and radius as other body hits. The head and its first two neck samples are excluded; ordinary movement and turns remain safe. Dedicated tests cover own-body hits on both wrapped seams, with and without boost, a single crash event, and safe straight/turning motion. Automatic opponents also avoid their own trailing bodies. The existing respawn protection applies as before. Rules are updated in English, French and Tagalog.
 
