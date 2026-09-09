@@ -1,12 +1,12 @@
 # Serpents · Endless gardens 1.0.1 — acceptance evidence
 
-Version 1.0.1 changes only the display overview and package artwork: a larger portrait rectangle, with the major circumference vertical and proportions derived from the rendered torus radii. EN/FR/TL phone/display layout and camera-target checks were rerun and the resulting display screenshot inspected. The gameplay engine is unchanged from 1.0.0; the CI workflow also repeats engine and host integration checks.
+Version 1.0.1 adds a larger portrait overview and a perspective drone camera following the largest living serpent. Camera tests cover the entire torus at varied heights/headings, the inner hole, wrapped crossings, a changing leader, interpolated camera paths and near-plane clipping. EN/FR/TL phone/display layout and camera-target checks were rerun and the resulting screenshots inspected. Game rules are unchanged; display snapshots now include a bounded, sampled body for the leader only. The CI workflow also repeats engine and host integration checks.
 
 Automated tests were run by the implementing agent, not an independent human reviewer.
 
 ## Engine
 
-The engine tests exercise authorized/invalid input, roster bounds, steering, simultaneous collisions, energy/length costs, expiry and release, scoring and ties, complete minimum- and maximum-player matches, saved-game restoration and the compiled QuickJS sandbox. Additional tests cross both toroidal seams, collect food and collide across seams, test respawn immunity, exclude bots from the human podium and run twelve serpents. State sent to the display omits world food and bodies; phones receive details in their camera region. Simulation uses 20 Hz physics and spatial collision indices.
+The engine tests exercise authorized/invalid input, roster bounds, steering, simultaneous collisions, energy/length costs, expiry and release, scoring and ties, complete minimum- and maximum-player matches, saved-game restoration and the compiled QuickJS sandbox. Additional tests cross both toroidal seams, collect food and collide across seams, test respawn immunity, exclude bots from the human podium and run twelve serpents. State sent to the display omits world food and nonleader bodies; phones receive details in their camera region. Simulation uses 20 Hz physics and spatial collision indices.
 
 ## Browser and host
 
