@@ -1,4 +1,6 @@
-# Serpents · Endless gardens 1.0.1 — acceptance evidence
+# Serpents · Endless gardens 1.0.2 — acceptance evidence
+
+Version 1.0.2 makes own-body collisions lethal using the same spatial index and radius as other body hits. The head and its first two neck samples are excluded; ordinary movement and turns remain safe. Dedicated tests cover own-body hits on both wrapped seams, with and without boost, a single crash event, and safe straight/turning motion. Automatic opponents also avoid their own trailing bodies. The existing respawn protection applies as before. Rules are updated in English, French and Tagalog.
 
 Version 1.0.1 adds a larger portrait overview and a perspective drone camera following the largest living serpent. Camera tests cover the entire torus at varied heights/headings, the inner hole, wrapped crossings, a changing leader, interpolated camera paths and near-plane clipping. EN/FR/TL phone/display layout and camera-target checks were rerun and the resulting screenshots inspected. Game rules are unchanged; display snapshots now include a bounded, sampled body for the leader only. The CI workflow also repeats engine and host integration checks.
 
