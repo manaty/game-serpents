@@ -41,3 +41,10 @@ test('viewport is bounded and private; display keeps all heads and only leader t
  const display=g.snapshot();assert.ok(display.players.every(p=>Number.isFinite(p.x)));assert.equal(display.players.filter(p=>p.body.length).length,1);assert.equal(display.food.length,0);
  assert.equal(g.snapshot('p').viewports,undefined);assert.ok(g.snapshot('q').food.length<g.food.length);
 });
+
+test('wire positions use quarter units without changing authoritative movement or collisions',()=>{
+ const g=new Game([{id:'p'}],null,{seed:123,bots:0});g.advance(.1);const original=JSON.stringify(g.save()),s=g.snapshot('p'),own=g.players[0],wire=s.players[0];
+ assert.ok(Math.abs(wire.x-own.x)<=.125);assert.ok(Math.abs(wire.y-own.y)<=.125);assert.ok(Math.abs(wire.angle-own.angle)<=.00005);
+ for(const b of wire.body){assert.ok(Number.isInteger(b[0]*4)&&Number.isInteger(b[1]*4));const real=own.body.find(r=>r[2]===b[2]);assert.ok(Math.abs(real[0]-b[0])<=.125&&Math.abs(real[1]-b[1])<=.125);}
+ assert.ok(s.food.every(f=>Number.isInteger(f.x*4)&&Number.isInteger(f.y*4)));assert.equal(JSON.stringify(g.save()),original);
+});

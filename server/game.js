@@ -2,7 +2,7 @@ import{InterestIndex}from'./interest.js';
 import{Base,copy,clamp,COLORS}from'./base.js';
 export const W=3600,H=3600,SPACING=9;
 export const wrap=(v,size)=>((v%size)+size)%size;export const delta=(a,b,size)=>((a-b+size*1.5)%size)-size/2;
-const norm=a=>Math.atan2(Math.sin(a),Math.cos(a));
+const norm=a=>Math.atan2(Math.sin(a),Math.cos(a)),wirePosition=x=>Math.round(x*4)/4;
 export class Game extends Base{
  constructor(players=[],saved=null,options={}){super();this.setup(players,{seconds:[60,120,180].includes(options.seconds)?options.seconds:120,bots:[0,2,4].includes(options.bots)?options.bots:2,arena:['garden','lagoon','twilight'].includes(options.arena)?options.arena:'garden',seed:options.seed||0});Object.defineProperty(this,'foodIndex',{value:null,writable:true});Object.defineProperty(this,'interest',{value:new InterestIndex,writable:true});this.viewports={};this.nextFoodId=1;this.kind='serpents';this.interval=1/20;this.arena=this.options.arena;for(let i=0;i<this.options.bots;i++)this.players.push({id:'bot-'+i,number:9+i,color:COLORS[(i+3)%8],bot:true,score:0,deaths:0,energy:100});this.food=[];this.players.forEach((p,i)=>this.spawn(p,i));for(let i=0;i<420;i++)this.addFood();this.emit('round');this.restore(saved);this.foodIndex=null;this.interest=new InterestIndex;this.viewports={};for(const f of this.food){if(!Number.isSafeInteger(f.id))f.id=this.nextFoodId++;else this.nextFoodId=Math.max(this.nextFoodId,f.id+1);}for(const p of this.players){if(p.body.some(b=>b.length!==3)){p.body=p.body.map((b,i)=>[b[0],b[1],0-i]);p.pathSequence=0;}}this.interestRevision=0;}
  spawn(p,index){const angle=index/Math.max(1,this.players.length)*Math.PI*2,x=W/2+Math.cos(angle)*520,y=H/2+Math.sin(angle)*520,dir=angle+Math.PI;Object.assign(p,{x,y,angle:dir,desired:dir,alive:true,mass:18,score:18,pathSequence:0,body:Array.from({length:18},(_,i)=>[x-Math.cos(dir)*i*SPACING,y-Math.sin(dir)*i*SPACING,0-i]),immuneUntil:this.time+2.5,respawn:0,boost:false,inputUntil:0,foodClock:0,sprinting:false,botClock:0,target:null});}
@@ -15,10 +15,10 @@ export class Game extends Base{
  snapshot(id){
  const own=this.players.find(p=>p.id===id),world={w:W,h:H,torus:true},leader=this.players.filter(p=>p.alive).sort((a,b)=>b.mass-a.mass||a.number-b.number)[0];
  let view;if(own){this.interest.sync(this.players,this.food,world,this.interestRevision);view=this.interest.view(own,this.viewports[id]||{width:900,height:1800},world);}
- const players=this.players.map(p=>{const body=own?(view.bodies.get(p.id)||[]):p.id===leader?.id?p.body.filter((b,i)=>i%Math.max(1,Math.ceil(p.body.length/60))===0||i===p.body.length-1).map(b=>b.map(Math.round)):[];
+ const players=this.players.map(p=>{const body=own?(view.bodies.get(p.id)||[]).map(b=>[wirePosition(b[0]),wirePosition(b[1]),b[2]]):p.id===leader?.id?p.body.filter((b,i)=>i%Math.max(1,Math.ceil(p.body.length/60))===0||i===p.body.length-1).map(b=>b.map(Math.round)):[];
  const visible=!own||p.id===id||body.length>0||view.contains(p.x,p.y);
  const common={id:p.id,number:p.number,color:p.color,bot:!!p.bot,score:p.score,alive:p.alive,mass:p.mass,energy:p.energy,deaths:p.deaths,respawn:p.respawn,visible,body};
- return visible?{...common,x:p.x,y:p.y,angle:p.angle,sprinting:p.sprinting,immuneUntil:p.immuneUntil}:common;});
- return {kind:this.kind,world,phase:this.phase,time:this.time,left:this.left,round:1,rounds:1,arena:this.arena,walls:[],food:view?view.food:[],players,events:copy(this.events.filter(e=>!view||e.x===undefined||e.player===id||view.contains(e.x,e.y))),winner:this.winner,winners:this.winners,options:this.options,you:id||null};
+ return visible?{...common,x:wirePosition(p.x),y:wirePosition(p.y),angle:Math.round(p.angle*10000)/10000,sprinting:p.sprinting,immuneUntil:p.immuneUntil}:common;});
+ return {kind:this.kind,world,phase:this.phase,time:this.time,left:this.left,round:1,rounds:1,arena:this.arena,walls:[],food:view?view.food.map(f=>({...f,x:wirePosition(f.x),y:wirePosition(f.y)})):[],players,events:copy(this.events.filter(e=>!view||e.x===undefined||e.player===id||view.contains(e.x,e.y))),winner:this.winner,winners:this.winners,options:this.options,you:id||null};
  }
 }

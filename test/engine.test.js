@@ -9,6 +9,14 @@ test('largest human wins, bots do not occupy podium, ties and restoration work',
 test('complete solo and eight-player matches stay bounded and end naturally',()=>{for(const n of [1,8]){const g=make(n,{bots:4,seconds:60});advance(g,61);assert.ok(g.ended);assert.ok(g.players.every(p=>p.x>=0&&p.x<W&&p.y>=0&&p.y<H&&p.body.length<=100));assert.ok(g.food.length<=700);assert.ok(g.winners.every(id=>!id.startsWith('bot-')));}});
 test('QuickJS twelve-serpent spatial collision index fits sandbox budgets',async()=>{const pack=JSON.parse(await readFile('dist/game.rmg.json')),g=new GameRuntime(pack,players(8),null,{bots:4});try{for(let i=0;i<160;i++){g.advance(.25);if(i%10===0)assert.ok(JSON.stringify(g.snapshot()).length<150000);}assert.equal(g.snapshot().players.length,12);assert.deepEqual(g.metadata.requiredPlayers,[]);}finally{g.dispose();}});
 
+test('QuickJS saves cross the VM as isolated values without serializing spatial caches',async()=>{
+ const pack=JSON.parse(await readFile('dist/game.rmg.json')),g=new GameRuntime(pack,players(8),null,{bots:4,seed:123});let restored;
+ try{g.snapshot('p0');const saved=g.save(),original=JSON.stringify(saved);assert.equal(saved.interest,undefined);assert.equal(saved.foodIndex,undefined);assert.equal(saved.save,undefined);
+  g.advance(.1);assert.equal(JSON.stringify(saved),original);const current=g.snapshot('p0');saved.players[0].x=999999;saved.food=[];assert.deepEqual(g.snapshot('p0'),current);
+  restored=new GameRuntime(pack,players(8),g.save());assert.deepEqual(restored.snapshot('p0'),current);
+ }finally{g.dispose();restored?.dispose();}
+});
+
 test('own-body hits kill once, including both wrapped seams and boost',()=>{
  for(const axis of ['x','y'])for(const seam of [false,true])for(const boost of [false,true]){
   const g=make(1),p=g.players[0],start=seam?W-5:1000,other=1000;

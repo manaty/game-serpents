@@ -3,20 +3,20 @@
   "summaries": {
     "phone": {
       "beforeBytes": 25570,
-      "filteredBytes": 24294,
-      "wireBytes": 2837,
-      "reduction": 9.01,
+      "filteredBytes": 18684,
+      "wireBytes": 2391,
+      "reduction": 10.69,
       "fullFrames": 16,
       "frames": 1600
     },
     "display": {
       "beforeBytes": 8866,
-      "filteredBytes": 9080,
-      "wireBytes": 1757,
-      "reduction": 5.05,
+      "filteredBytes": 8791,
+      "wireBytes": 1606,
+      "reduction": 5.52,
       "fullFrames": 2,
       "frames": 200
     }
   },
-  "meanEncodeMs": 2.709103277777752
+  "meanEncodeMs": 0.4668106666666655
 }

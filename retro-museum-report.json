@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "status": "passed",
-  "sha256": "4b3345e2600526cd6fdb1220a58301d860e5b2856434884ff03b760db7fa2e00",
+  "sha256": "1a3c23dc388003c0f57e5efc8e7d8849907585688800e70500726cd2c48614ff",
   "game": "serpents",
   "version": "1.1.1",
   "checks": [
@@ -18,7 +18,7 @@
       "passed": true
     }
   ],
-  "durationMs": 695,
+  "durationMs": 945,
   "limits": {
     "memoryMb": 24,
     "operationMs": 40,
