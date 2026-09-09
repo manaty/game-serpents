@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "status": "passed",
-  "sha256": "590569cc66efd6d6deae08b9723f5f3303374f2401da34df98a693779452f6db",
+  "sha256": "ca0a2a042c39ec2bb4657ba97c582330c616554a65564bfff4cb66db669e5102",
   "game": "serpents",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "checks": [
     {
       "name": "manifest-and-assets",
@@ -18,7 +18,7 @@
       "passed": true
     }
   ],
-  "durationMs": 666,
+  "durationMs": 1300,
   "limits": {
     "memoryMb": 24,
     "operationMs": 40,
